@@ -1,5 +1,9 @@
 #include<stdio.h>
 #include<math.h>
+
+/**
+ * 一元二次方程组
+ */
 int main()
 {
 	int a, b, c, d,e;

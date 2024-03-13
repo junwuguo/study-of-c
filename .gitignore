@@ -1,0 +1,5 @@
+exe/
+/cmake-build-debug
+.name
+*.iml
+.idea

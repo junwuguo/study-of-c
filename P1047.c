@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+/**
+ * https://www.luogu.com.cn/problem/P1047
+ */
 int main()
 {
     int a;
