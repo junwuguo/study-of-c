@@ -1,59 +1,38 @@
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
+
 //开灯问题：https://www.luogu.com.cn/problem/P1161
 int main() {
-  int a, b, c, f, g, h, k, m,p;
-  k = 0;
-  f = 0;
+    // 操作次数
+    int n;
+    scanf("%d", &n);
+    /*
+     * 确保能够存放所有操作.
+     *
+     * 由于申请的内存空间过大. 所以不推荐使用 int lamps[2000001] 进行操作, 避免栈溢出.
+     *
+     * 使用 calloc 动态申请分配. 规避静态申请可能栈溢出问题
+    */
+    int *lamps = (int *) calloc(2000001, sizeof(int));
+    // 存放最后一个奇数操作的索引
+    int lastOdd = 0;
 
-  scanf("%d", &a);//输入操作次数
-  c = a * 2;
-  float d[c];
-  for (b = 0; b < a; b+=2) { // 修改循环条件，避免越界
-    scanf("%f %f", &d[b], &d[b + 1]);
-    
-  }//输入每一次操作的具体值
-  float e[a];
-  b = 0;
-  for (b = 0; b < a; b++) {
-    e[b] = d[f] * d[f + 1];
-    f += 2;
-  }//找到每一次最远被操作路灯的编号
-  b = 0;
-  g = 0;
-  h = 0;
-  for (b = 0; b < a; b++) { // 修改循环条件，避免越界
-    g = 0;
-    for (g = 0; g < a - 1; g++) { // 修改循环次数，避免越界
-      if (e[g] < e[g + 1]) {
-        h = e[g];
-        e[g] = e[g + 1];
-        e[g + 1] = h;
-        g++;
-      }
-    }
-  }//找到三次操作中最远的被操作的路灯编号
-  m = (int)e[0];
-  float i[m]; // 定义一个最远的可以被操控路灯的数组
-  for (b = 0; b < m; b++) { // 初始化数组 i
-    i[b] = 1;
-  }//定义关的状态为1以及奇数
-  b = 0;
-  g = 0;
-  for (p = 0; p < a; b+=2,p++) {
-    for (c = 1; c <= d[b + 1]; c++) {
-      k = c * d[b];
-      i[k] += 1;
-    }//对被操作的路灯的状态进行改变
-    
-  }
-  b = 0;
-  c = 0;
-  for (b = 1; b < e[0]; b++) {
-    if (i[b] / 2 != 1) {
-      printf("%d", b);
+    for (int i = 0; i < n; ++i) {
+        double a;
+        int t;
+        scanf("%lf %d", &a, &t);
 
+        for (int j = 1; j <= t; ++j) {
+            int index = (int) floor(j * a);
+            lamps[index] ^= 1;  // 使用异或操作翻转灯的状态
+            if (lamps[index] == 1) {
+                lastOdd = index;
+            }
+        }
     }
-  }//计算结果
-  return 0;
+
+    printf("%d", lastOdd);
+    free(lamps);
+    return 0;
 }

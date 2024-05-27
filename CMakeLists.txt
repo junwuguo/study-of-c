@@ -8,3 +8,4 @@ include_directories(.)
 
 add_executable(P1047 P1047.c)
 add_executable(gugugu gugugu.c)
+add_executable(p1161 p1161.c)
